@@ -1,0 +1,44 @@
+version: '3.7'
+
+services:
+
+  nginx:
+    build:
+      context: ./nginx
+    ports:
+      - ${NGINX_PORT}:80
+    volumes:
+      - ${APP_DIR}/public:${CONTAINER_DIR}/public:cached
+      - ${APP_DIR}/storage:${CONTAINER_DIR}/storage:cached
+
+  php-fpm:
+    build:
+      context: ./php-fpm
+    ports:
+      - ${PHPFPM_PORT}:9000
+    volumes:
+      - ${APP_DIR}:${CONTAINER_DIR}:cached
+      - exclude:${CONTAINER_DIR}/node_modules
+      - exclude:${CONTAINER_DIR}/tests
+
+  mysql:
+    build:
+      context: ./mysql
+    ports:
+      - ${MYSQL_PORT}:3306
+    volumes:
+      - db-data:/var/lib/mysql:delegated
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASS}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+
+  workspace:
+    build: 
+        context: ./workspace
+    volumes: 
+        - ${APP_DIR}:${CONTAINER_DIR}:cached
+    working_dir: ${CONTAINER_DIR}
+
+volumes:
+    exclude:
+    db-data:
