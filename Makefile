@@ -12,9 +12,11 @@ restart:
 ps:
 	docker-compose ps
 
-
 mysql-e:
-	docker-compose exec mysql bash -c 'mysql -u root -p$$MYSQL_ROOT_PASSWORD'
+	docker-compose exec mysql bash -c 'mysql -uroot -p$$MYSQL_ROOT_PASSWORD'
+
+database:
+	docker-compose exec mysql bash -c 'mysql -uroot -p$$MYSQL_ROOT_PASSWORD -e "create database ${arg}"'
 
 work-e:
 	docker-compose run --rm workspace /bin/ash --login
