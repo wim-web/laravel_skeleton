@@ -33,7 +33,7 @@ cp .env.sample .env
 以下のコマンドでworkspaceに入り、
 
 ```
-make work-e
+make work
 ```
 
 LaravelをDLします
@@ -50,11 +50,11 @@ nginxにアクセスしLaravelの初期画面が出れば成功！
 
 よく使うコマンドをまとめています
 
-- `make mysql-e` : mysqlコンテナ内のmysqlにログインします
+- `make mysqld` : mysqlコンテナ内のmysqlにログインします
 
 - `make database arg=name` : nameで指定したdatabaseを作成します
 
-- `make work-e` : workspaceに入ります
+- `make work` : workspaceに入ります
 
 ## Workspaceでのalias
 
