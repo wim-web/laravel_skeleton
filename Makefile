@@ -1,5 +1,5 @@
 up:
-	docker-compose up -d
+	docker-compose up -d nginx php-fpm mysql
 build:
 	docker-compose build --no-cache --force-rm
 stop:
@@ -12,13 +12,13 @@ restart:
 ps:
 	docker-compose ps
 
-mysql-e:
+mysqld:
 	docker-compose exec mysql bash -c 'mysql -uroot -p$$MYSQL_ROOT_PASSWORD'
 
 database:
 	docker-compose exec mysql bash -c 'mysql -uroot -p$$MYSQL_ROOT_PASSWORD -e "create database ${arg}"'
 
-work-e:
+work:
 	docker-compose run --rm workspace /bin/ash --login
 	
 ide-helper:
